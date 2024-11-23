@@ -1,15 +1,20 @@
-import * as React from 'react'
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { TanStackRouterDevtools } from '@/components/tanstack-router-devtools';
+import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { Suspense } from 'react';
 
 export const Route = createRootRoute({
   component: RootComponent,
-})
+});
 
 function RootComponent() {
   return (
-    <React.Fragment>
-      <div>Hello "__root"!</div>
-      <Outlet />
-    </React.Fragment>
-  )
+    <>
+      <div className='min-h-screen flex'>
+        <Outlet />
+      </div>
+      <Suspense>
+        <TanStackRouterDevtools />
+      </Suspense>
+    </>
+  );
 }
