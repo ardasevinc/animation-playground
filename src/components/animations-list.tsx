@@ -5,13 +5,13 @@ const animations = [{ href: '/number-animations', label: 'Number Animations' }];
 
 const AnimationsList = () => {
   return (
-    <ul>
+    <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
       {animations.map((animation) => (
         <li key={animation.href}>
           <Link to={animation.href}>
             <Card>
               <CardHeader>
-                <CardTitle>{animation.label}</CardTitle>
+                <CardTitle className='text-xl'>{animation.label}</CardTitle>
               </CardHeader>
               <CardContent>Number animation go brrr...</CardContent>
             </Card>

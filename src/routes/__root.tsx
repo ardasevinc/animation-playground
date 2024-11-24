@@ -9,11 +9,16 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
-      <div className='min-h-screen flex'>
+      <div className='min-h-screen flex flex-col px-2 lg:px-4 2xl:px-10 gap-y-4 lg:gap-y-10'>
+        <header className='w-full'>
+          <h1 className='text-3xl text-center pt-2 lg:pt-6'>
+            Animation Playground
+          </h1>
+        </header>
         <Outlet />
       </div>
       <Suspense>
-        <TanStackRouterDevtools />
+        <TanStackRouterDevtools position='bottom-right' />
       </Suspense>
     </>
   );
