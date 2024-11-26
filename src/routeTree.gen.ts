@@ -8,19 +8,26 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as NumberAnimationsImport } from './routes/number-animations'
 import { Route as IndexImport } from './routes/index'
+
+// Create Virtual Routes
+
+const NumberAnimationsLazyImport = createFileRoute('/number-animations')()
 
 // Create/Update Routes
 
-const NumberAnimationsRoute = NumberAnimationsImport.update({
+const NumberAnimationsLazyRoute = NumberAnimationsLazyImport.update({
   id: '/number-animations',
   path: '/number-animations',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() =>
+  import('./routes/number-animations.lazy').then((d) => d.Route),
+)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -43,7 +50,7 @@ declare module '@tanstack/react-router' {
       id: '/number-animations'
       path: '/number-animations'
       fullPath: '/number-animations'
-      preLoaderRoute: typeof NumberAnimationsImport
+      preLoaderRoute: typeof NumberAnimationsLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,18 +60,18 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/number-animations': typeof NumberAnimationsRoute
+  '/number-animations': typeof NumberAnimationsLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/number-animations': typeof NumberAnimationsRoute
+  '/number-animations': typeof NumberAnimationsLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/number-animations': typeof NumberAnimationsRoute
+  '/number-animations': typeof NumberAnimationsLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -78,12 +85,12 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  NumberAnimationsRoute: typeof NumberAnimationsRoute
+  NumberAnimationsLazyRoute: typeof NumberAnimationsLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  NumberAnimationsRoute: NumberAnimationsRoute,
+  NumberAnimationsLazyRoute: NumberAnimationsLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -104,7 +111,7 @@ export const routeTree = rootRoute
       "filePath": "index.tsx"
     },
     "/number-animations": {
-      "filePath": "number-animations.tsx"
+      "filePath": "number-animations.lazy.tsx"
     }
   }
 }
