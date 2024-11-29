@@ -1,5 +1,5 @@
+import { BouncyNotFound } from '@/components/bouncy-not-found';
 import { TanStackRouterDevtools } from '@/components/tanstack-router-devtools';
-import { Badge } from '@/components/ui/badge';
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 import { Suspense } from 'react';
 
@@ -11,10 +11,7 @@ export const Route = createRootRoute({
 function NotFound() {
   return (
     <main className='flex-1 flex'>
-      <section className='flex flex-col items-center'>
-        <Badge variant='outline'>404</Badge>
-        <h2>Not Found</h2>
-      </section>
+      <BouncyNotFound />
     </main>
   );
 }
