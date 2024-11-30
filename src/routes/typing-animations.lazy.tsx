@@ -1,3 +1,4 @@
+import { AnimatedTextCard } from '@/components/animated-text-card';
 import { BlinkingCursorCard } from '@/components/blinking-cursor-card';
 import { createLazyFileRoute } from '@tanstack/react-router';
 
@@ -13,8 +14,9 @@ function TypingAnimations() {
           <h2 className='text-center'>Typing Animations</h2>
         </div>
       </section>
-      <section className='grid'>
+      <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-min grid-flow-dense gap-x-4 gap-y-6'>
         <BlinkingCursorCard />
+        <AnimatedTextCard />
       </section>
     </main>
   );
