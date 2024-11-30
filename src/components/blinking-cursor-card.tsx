@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 const BlinkingCursorCard = () => {
   return (
-    <Card className='w-36'>
+    <Card>
       <CardHeader>
         <CardTitle>Blinking Cursor</CardTitle>
       </CardHeader>

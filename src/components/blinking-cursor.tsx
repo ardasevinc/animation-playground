@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { type Variants, motion } from 'motion/react';
 
 import { cn } from '@/lib/utils';
@@ -15,7 +16,7 @@ const cursorVariants: Variants = {
   },
 };
 
-const BlinkingCursor = ({ className }: { className?: string }) => {
+const BlinkingCursor = memo(({ className }: { className?: string }) => {
   return (
     <motion.div
       variants={cursorVariants}
@@ -26,6 +27,6 @@ const BlinkingCursor = ({ className }: { className?: string }) => {
       )}
     />
   );
-};
+});
 
 export { BlinkingCursor };
