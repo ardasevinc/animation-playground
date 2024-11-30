@@ -17,3 +17,7 @@ export function moneyFormat(
     maximumFractionDigits: 2,
   }).format(amount);
 }
+
+export function formatTime(ms: number) {
+  return `${(ms / 1000).toFixed(2)}s`;
+}
