@@ -27,9 +27,10 @@ const Counter = ({
   const [controls, setControls] = useState<null | AnimationControls>(null);
   const [scope, animate] = useAnimate();
   const count = useMotionValue(start);
-  const transformed = isMoney
-    ? moneyFormat(count.get())
-    : useTransform(count, Math.round);
+
+  const displayValue = useTransform(count, (latest) =>
+    isMoney ? moneyFormat(latest) : Math.round(latest).toString(),
+  );
 
   useEffect(() => {
     const controls = animate(count, end, { duration, autoplay: false });
@@ -44,7 +45,7 @@ const Counter = ({
   return (
     <div className='flex flex-col gap-y-8'>
       <motion.span className={cn(className)} ref={scope}>
-        {transformed}
+        {displayValue}
       </motion.span>
       <AnimationPlaybackControls controls={controls} />
     </div>
