@@ -17,9 +17,18 @@ import { Route as IndexImport } from './routes/index'
 
 // Create Virtual Routes
 
+const TypingAnimationsLazyImport = createFileRoute('/typing-animations')()
 const NumberAnimationsLazyImport = createFileRoute('/number-animations')()
 
 // Create/Update Routes
+
+const TypingAnimationsLazyRoute = TypingAnimationsLazyImport.update({
+  id: '/typing-animations',
+  path: '/typing-animations',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/typing-animations.lazy').then((d) => d.Route),
+)
 
 const NumberAnimationsLazyRoute = NumberAnimationsLazyImport.update({
   id: '/number-animations',
@@ -53,6 +62,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NumberAnimationsLazyImport
       parentRoute: typeof rootRoute
     }
+    '/typing-animations': {
+      id: '/typing-animations'
+      path: '/typing-animations'
+      fullPath: '/typing-animations'
+      preLoaderRoute: typeof TypingAnimationsLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -61,36 +77,41 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/number-animations': typeof NumberAnimationsLazyRoute
+  '/typing-animations': typeof TypingAnimationsLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/number-animations': typeof NumberAnimationsLazyRoute
+  '/typing-animations': typeof TypingAnimationsLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/number-animations': typeof NumberAnimationsLazyRoute
+  '/typing-animations': typeof TypingAnimationsLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/number-animations'
+  fullPaths: '/' | '/number-animations' | '/typing-animations'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/number-animations'
-  id: '__root__' | '/' | '/number-animations'
+  to: '/' | '/number-animations' | '/typing-animations'
+  id: '__root__' | '/' | '/number-animations' | '/typing-animations'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   NumberAnimationsLazyRoute: typeof NumberAnimationsLazyRoute
+  TypingAnimationsLazyRoute: typeof TypingAnimationsLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   NumberAnimationsLazyRoute: NumberAnimationsLazyRoute,
+  TypingAnimationsLazyRoute: TypingAnimationsLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -104,7 +125,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/number-animations"
+        "/number-animations",
+        "/typing-animations"
       ]
     },
     "/": {
@@ -112,6 +134,9 @@ export const routeTree = rootRoute
     },
     "/number-animations": {
       "filePath": "number-animations.lazy.tsx"
+    },
+    "/typing-animations": {
+      "filePath": "typing-animations.lazy.tsx"
     }
   }
 }
