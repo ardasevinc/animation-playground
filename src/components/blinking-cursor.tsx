@@ -1,5 +1,7 @@
 import { type Variants, motion } from 'motion/react';
 
+import { cn } from '@/lib/utils';
+
 const cursorVariants: Variants = {
   blinking: {
     opacity: [0, 0, 1, 1],
@@ -13,12 +15,15 @@ const cursorVariants: Variants = {
   },
 };
 
-const BlinkingCursor = () => {
+const BlinkingCursor = ({ className }: { className?: string }) => {
   return (
     <motion.div
       variants={cursorVariants}
       animate='blinking'
-      className='inline-block h-5 w-[1px] translate-y-1 bg-white'
+      className={cn(
+        'inline-block h-5 w-[1px] translate-y-1 bg-white',
+        className,
+      )}
     />
   );
 };
