@@ -14,7 +14,7 @@ function NumberAnimations() {
         </div>
       </section>
       <section className='flex items-center justify-center'>
-        <Counter start={0} end={100} duration={5} className='text-xl' />
+        <Counter start={0} end={100} duration={10} className='text-xl' />
       </section>
     </main>
   );

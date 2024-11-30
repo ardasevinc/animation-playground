@@ -2,9 +2,9 @@ import { moneyFormat, cn } from '@/lib/utils';
 import {
   useMotionValue,
   motion,
-  animate,
   useTransform,
   type AnimationPlaybackControls as AnimationControls,
+  useAnimate,
 } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { AnimationPlaybackControls } from './animation-playback-controls';
@@ -25,15 +25,16 @@ const Counter = ({
   className,
 }: CounterProps) => {
   const [controls, setControls] = useState<null | AnimationControls>(null);
+  const [scope, animate] = useAnimate();
   const count = useMotionValue(start);
   const transformed = isMoney
     ? moneyFormat(count.get())
     : useTransform(count, Math.round);
 
   useEffect(() => {
-    const controls = animate(count, end, { duration });
+    const controls = animate(count, end, { duration, autoplay: false });
     setControls(controls);
-    return () => controls.stop();
+    return () => controls.pause();
   }, []);
 
   if (controls == undefined) {
@@ -42,7 +43,9 @@ const Counter = ({
 
   return (
     <div className='flex flex-col gap-y-8'>
-      <motion.span className={cn(className)}>{transformed}</motion.span>
+      <motion.span className={cn(className)} ref={scope}>
+        {transformed}
+      </motion.span>
       <AnimationPlaybackControls controls={controls} />
     </div>
   );
