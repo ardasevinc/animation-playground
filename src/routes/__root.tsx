@@ -1,6 +1,6 @@
 import { BouncyNotFound } from '@/components/bouncy-not-found';
 import { TanStackRouterDevtools } from '@/components/tanstack-router-devtools';
-import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { Link, Outlet, createRootRoute } from '@tanstack/react-router';
 import { Suspense } from 'react';
 
 export const Route = createRootRoute({
@@ -21,9 +21,11 @@ function RootComponent() {
     <>
       <div className='min-h-screen flex flex-col px-2 lg:px-4 2xl:px-10 gap-y-4 lg:gap-y-10'>
         <header className='w-full'>
-          <h1 className='text-3xl text-center pt-2 lg:pt-6'>
-            Animation Playground
-          </h1>
+          <Link to='/'>
+            <h1 className='text-3xl text-center pt-2 lg:pt-6'>
+              Animation Playground
+            </h1>
+          </Link>
         </header>
         <Outlet />
       </div>
